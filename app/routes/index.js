@@ -1,5 +1,10 @@
+/**
+ * @author Gabriel Schmidt Cordeiro <gabrielscordeiro2012@gmail.com>
+ * @description index route
+ */
+
 module.exports = function(application){
 	application.get('/', function(req, res){
-		res.render('index')
+		application.app.controllers.IndexController.index(application, req, res);		
 	});
 }
