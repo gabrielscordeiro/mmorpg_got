@@ -1,3 +1,8 @@
+/**
+ * @author Gabriel Schmidt Cordeiro <gabrielscordeiro2012@gmail.com>
+ * @description server
+ */
+
 /* importar o módulo do framework express */
 var express = require('express');
 
@@ -29,6 +34,7 @@ app.use(expressValidator());
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign()
 	.include('app/routes')
+	.then('config/dbConnection.js')
 	.then('app/models')
 	.then('app/controllers')
 	.into(app);
