@@ -7,7 +7,7 @@
 
 const mongo = require('mongodb');
 
-var connMongoDB = function(){
+var connMongoDB = function () {
     let db = new mongo.Db(
         'got',//nome do banco
         new mongo.Server(
@@ -21,6 +21,6 @@ var connMongoDB = function(){
     return db;
 }
 
-module.exports = function(){
+module.exports = function () {
     return connMongoDB;
 }
