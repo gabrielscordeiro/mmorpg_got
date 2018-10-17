@@ -4,35 +4,45 @@
  */
 
 module.exports.cadastro = function (application, req, res) {
-    res.render('cadastro', {
-        validacao: {},
-        dadosForm: {}
-    });
+    if (req.session.autorizado) {
+        res.render('jogo');
+    } else {
+        res.render('cadastro', {
+            validacao: {},
+            dadosForm: {}
+        });
+    }
 }
 
 module.exports.cadastrar = function (application, req, res) {
-    let dadosForm = req.body;
+    if (req.session.autorizado) {
+        res.render('jogo');
+    } else {
 
-    req.assert('nome', 'Nome não pode ser vazio').notEmpty();
-    req.assert('usuario', 'Usuário não pode ser vazio').notEmpty();
-    req.assert('senha', 'Senha não pode ser vazio').notEmpty();
-    req.assert('casa', 'Casa não pode ser vazio').notEmpty();
 
-    let error = req.validationErrors();
+        let dadosForm = req.body;
 
-    if (error) {
-        res.render('cadastro', {
-            validacao: error,
-            dadosForm: dadosForm
-        });
+        req.assert('nome', 'Nome não pode ser vazio').notEmpty();
+        req.assert('usuario', 'Usuário não pode ser vazio').notEmpty();
+        req.assert('senha', 'Senha não pode ser vazio').notEmpty();
+        req.assert('casa', 'Casa não pode ser vazio').notEmpty();
 
-        return;
+        let error = req.validationErrors();
+
+        if (error) {
+            res.render('cadastro', {
+                validacao: error,
+                dadosForm: dadosForm
+            });
+
+            return;
+        }
+
+        let connection = application.config.dbConnection;
+        let UsuariosDAO = new application.app.models.UsuariosDAO(connection);
+
+        UsuariosDAO.inserirUsuario(dadosForm);
+
+        res.send('Podemos continuar');
     }
-
-    let connection = application.config.dbConnection;
-    let UsuariosDAO = new application.app.models.UsuariosDAO(connection);
-
-    UsuariosDAO.inserirUsuario(dadosForm);
-
-    res.send('Podemos continuar');
 }

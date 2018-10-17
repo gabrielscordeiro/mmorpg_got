@@ -3,8 +3,8 @@
  * @description jogo route
  **/
 
-module.exports = function(application){
-	application.get('/jogo', function(req, res){
-		application.app.controllers.JogoController.jogo(application, req, res);		
+module.exports = function (application) {
+	application.get('/jogo', function (req, res) {
+		application.app.controllers.JogoController.jogo(application, req, res);
 	});
 }
