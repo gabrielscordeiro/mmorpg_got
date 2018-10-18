@@ -21,6 +21,15 @@ var expressSession = require('express-session');
 /* iniciar o objeto do express */
 var app = express();
 
+/* importar o módulo do file system */
+var fs = require('fs');
+
+/* importar o módulo do morgan */
+var morgan = require('morgan');
+
+/* importar o módulo path */
+var path = require('path');
+
 /* setar as variáveis 'view engine' e 'views' do express */
 app.set('view engine', 'ejs');
 app.set('views', './app/views');
@@ -40,6 +49,12 @@ app.use(expressSession({
 	resave: false,
 	saveUninitialized: false
 }));
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+ 
+// setup the logger
+app.use(morgan('common', { stream: accessLogStream }))
 
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign()
