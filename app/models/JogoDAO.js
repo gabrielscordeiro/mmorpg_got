@@ -24,6 +24,25 @@ JogoDAO.prototype.gerarParametros = function(usuario){
     });
 }
 
+JogoDAO.prototype.iniciaJogo = function(usuario, res, casa){
+    this._connection.open(function (err, mongoClient) {
+        mongoClient.collection('jogo', function (error, collection) {
+            //Como os dados vindo por paramêtro são os mesmos que será usado na query pode ser passado diretamente o JSON
+            //o toArray recupera o cursor gerado pela função find e retorna dentro de um callback um array que pode ser usado dentro da aplicação
+            collection.find({
+                usuario: usuario
+            }).toArray(function (err, result) {                
+                res.render('jogo', {
+                    img_casa: casa, 
+                    jogo: result[0]
+                });
+            });
+
+            mongoClient.close();
+        });
+    });
+}
+
 module.exports = function () {
     return JogoDAO;
 }
