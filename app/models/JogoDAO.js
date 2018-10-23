@@ -24,7 +24,7 @@ JogoDAO.prototype.gerarParametros = function(usuario){
     });
 }
 
-JogoDAO.prototype.iniciaJogo = function(usuario, res, casa){
+JogoDAO.prototype.iniciaJogo = function(usuario, res, casa, comando_invalido){
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('jogo', function (error, collection) {
             //Como os dados vindo por paramêtro são os mesmos que será usado na query pode ser passado diretamente o JSON
@@ -34,7 +34,8 @@ JogoDAO.prototype.iniciaJogo = function(usuario, res, casa){
             }).toArray(function (err, result) {                
                 res.render('jogo', {
                     img_casa: casa, 
-                    jogo: result[0]
+                    jogo: result[0],
+                    comando_invalido: comando_invalido
                 });
             });
 
