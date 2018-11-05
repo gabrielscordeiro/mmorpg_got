@@ -24,7 +24,7 @@ JogoDAO.prototype.gerarParametros = function(usuario){
     });
 }
 
-JogoDAO.prototype.iniciaJogo = function(usuario, res, casa, comando_invalido){
+JogoDAO.prototype.iniciaJogo = function(usuario, res, casa, msg){
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('jogo', function (error, collection) {
             //Como os dados vindo por paramêtro são os mesmos que será usado na query pode ser passado diretamente o JSON
@@ -35,9 +35,31 @@ JogoDAO.prototype.iniciaJogo = function(usuario, res, casa, comando_invalido){
                 res.render('jogo', {
                     img_casa: casa, 
                     jogo: result[0],
-                    comando_invalido: comando_invalido
+                    msg: msg
                 });
             });
+
+            mongoClient.close();
+        });
+    });
+}
+
+JogoDAO.prototype.acao = function(acao){
+    this._connection.open(function (err, mongoClient) {
+        mongoClient.collection('acao', function (error, collection) {
+            var date = new Date();
+
+            var tempo = null;
+            switch(acao.acao){
+                case 1: tempo = 1 * 60 * 60000;
+                case 2: tempo = 2 * 60 * 60000;
+                case 3: tempo = 5 * 60 * 60000;
+                case 4: tempo = 5 * 60 * 60000;
+            }
+
+            acao.acao_termina_em = date.getTime() + tempo;
+
+            collection.insert(acao);
 
             mongoClient.close();
         });
