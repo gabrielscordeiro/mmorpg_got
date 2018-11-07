@@ -6,7 +6,7 @@ function JogoDAO(connection) {
     this._connection = connection();
 }
 
-JogoDAO.prototype.gerarParametros = function(usuario){
+JogoDAO.prototype.gerarParametros = function (usuario) {
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('jogo', function (error, collection) {
             collection.insert({
@@ -24,16 +24,16 @@ JogoDAO.prototype.gerarParametros = function(usuario){
     });
 }
 
-JogoDAO.prototype.iniciaJogo = function(usuario, res, casa, msg){
+JogoDAO.prototype.iniciaJogo = function (usuario, res, casa, msg) {
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('jogo', function (error, collection) {
             //Como os dados vindo por paramêtro são os mesmos que será usado na query pode ser passado diretamente o JSON
             //o toArray recupera o cursor gerado pela função find e retorna dentro de um callback um array que pode ser usado dentro da aplicação
             collection.find({
                 usuario: usuario
-            }).toArray(function (err, result) {                
+            }).toArray(function (err, result) {
                 res.render('jogo', {
-                    img_casa: casa, 
+                    img_casa: casa,
                     jogo: result[0],
                     msg: msg
                 });
@@ -44,17 +44,17 @@ JogoDAO.prototype.iniciaJogo = function(usuario, res, casa, msg){
     });
 }
 
-JogoDAO.prototype.acao = function(acao){
+JogoDAO.prototype.acao = function (acao) {
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('acao', function (error, collection) {
             var date = new Date();
 
             var tempo = null;
-            switch(acao.acao){
-                case 1: tempo = 1 * 60 * 60000;
-                case 2: tempo = 2 * 60 * 60000;
-                case 3: tempo = 5 * 60 * 60000;
-                case 4: tempo = 5 * 60 * 60000;
+            switch (parseInt(acao.acao)) {
+                case 1: tempo = 1 * 60 * 60000; break;
+                case 2: tempo = 2 * 60 * 60000; break;
+                case 3: tempo = 5 * 60 * 60000; break;
+                case 4: tempo = 5 * 60 * 60000; break;
             }
 
             acao.acao_termina_em = date.getTime() + tempo;
@@ -66,13 +66,15 @@ JogoDAO.prototype.acao = function(acao){
     });
 }
 
-JogoDAO.prototype.getAcoes = function(usuario){
+JogoDAO.prototype.getAcoes = function (usuario, res) {
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('acao', function (error, collection) {
             collection.find({
                 usuario: usuario
-            }).toArray(function (err, result) {                
-                console.log(result);
+            }).toArray(function (err, result) {
+                res.render('pergaminhos', {
+                    acoes: result
+                });
             });
 
             mongoClient.close();
