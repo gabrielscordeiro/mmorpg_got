@@ -266,3 +266,13 @@
 ::1 - - [07/Nov/2018:14:34:33 +0000] "GET /pergaminhos HTTP/1.1" 304 -
 ::1 - - [07/Nov/2018:14:34:33 +0000] "GET /pergaminhos HTTP/1.1" 200 268
 ::1 - - [07/Nov/2018:14:34:34 +0000] "GET /pergaminhos HTTP/1.1" 304 -
+::1 - - [07/Nov/2018:14:38:00 +0000] "GET /jogo HTTP/1.1" 200 3631
+::1 - - [07/Nov/2018:14:38:01 +0000] "GET /pergaminhos HTTP/1.1" 200 265
+::1 - - [07/Nov/2018:14:38:17 +0000] "GET /jogo HTTP/1.1" 304 -
+::1 - - [07/Nov/2018:14:38:18 +0000] "GET /pergaminhos HTTP/1.1" 304 -
+::1 - - [07/Nov/2018:14:38:19 +0000] "GET /pergaminhos HTTP/1.1" 304 -
+::1 - - [07/Nov/2018:14:38:20 +0000] "GET /pergaminhos HTTP/1.1" 304 -
+::1 - - [07/Nov/2018:14:38:20 +0000] "GET /pergaminhos HTTP/1.1" 304 -
+::1 - - [07/Nov/2018:14:38:52 +0000] "GET /jogo HTTP/1.1" 200 3641
+::1 - - [07/Nov/2018:14:38:54 +0000] "GET /pergaminhos HTTP/1.1" 304 -
+::1 - - [07/Nov/2018:14:38:59 +0000] "GET /jogo?msg=C HTTP/1.1" 200 3771
