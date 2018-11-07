@@ -50,10 +50,26 @@
 						method: 'get',
 						success: function(res){
 							$('#acoes').html(res);
+							clearTimeout(timerId);
+							cronometro();
 						}
 					})
 				});
 			});
+			
+			var timerId = null;
+
+			function cronometro(){
+				$('.tempoRestante').each(function(){
+					var segundos  = $(this).html();
+					
+					var segundosAtuais = parseInt(segundos) - 1;
+
+					$(this).html(segundosAtuais);
+				});
+
+				timerId = setTimeout('cronometro()', 1000);
+			}
 		</script>
 
 	    <div class="container">
