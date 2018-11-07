@@ -2,6 +2,8 @@
  * @author Gabriel Schmidt Cordeiro <gabrielscordeiro2012@gmail.com>
  * @description JogoDAO
  */
+const ObjectId = require('mongodb').ObjectId;
+
 function JogoDAO(connection) {
     this._connection = connection();
 }
@@ -105,6 +107,20 @@ JogoDAO.prototype.getAcoes = function (usuario, res) {
                 });
             });
 
+            mongoClient.close();
+        });
+    });
+}
+
+JogoDAO.prototype.revogarAcao = function (_id, res) {
+    this._connection.open(function (err, mongoClient) {
+        mongoClient.collection('acao', function (error, collection) {
+            collection.remove({
+                _id: ObjectId(_id)
+            }, function(err, result){
+                res.redirect('jogo?msg=D')
+            });
+            
             mongoClient.close();
         });
     });

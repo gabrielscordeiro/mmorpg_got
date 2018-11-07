@@ -6,12 +6,12 @@
 module.exports.jogo = function (application, req, res) {
     if (req.session.autorizado != true) {
         res.send('Usuário precisa fazer o login');
-        return;        
+        return;
     }
 
     var msg = '';
 
-    if(req.query.msg != ''){
+    if (req.query.msg != '') {
         msg = req.query.msg;
     }
 
@@ -24,7 +24,7 @@ module.exports.jogo = function (application, req, res) {
 }
 
 module.exports.sair = function (application, req, res) {
-    req.session.destroy(function(err){
+    req.session.destroy(function (err) {
         res.render('index', {
             validacao: {}
         })
@@ -34,15 +34,15 @@ module.exports.sair = function (application, req, res) {
 module.exports.suditos = function (application, req, res) {
     if (req.session.autorizado != true) {
         res.send('Usuário precisa fazer o login');
-        return;        
+        return;
     }
-    res.render('aldeoes', {validacao:{}})
+    res.render('aldeoes', { validacao: {} })
 }
 
 module.exports.pergaminhos = function (application, req, res) {
     if (req.session.autorizado != true) {
         res.send('Usuário precisa fazer o login');
-        return;        
+        return;
     }
 
     //Recuperar as ações inseridas no BD
@@ -54,11 +54,11 @@ module.exports.pergaminhos = function (application, req, res) {
 
     JogoDAO.getAcoes(usuario, res);
 }
- 
+
 module.exports.ordenar_acao_sudito = function (application, req, res) {
     if (req.session.autorizado != true) {
         res.send('Usuário precisa fazer o login');
-        return;        
+        return;
     }
 
     var dadosForm = req.body;
@@ -68,7 +68,7 @@ module.exports.ordenar_acao_sudito = function (application, req, res) {
 
     var erros = req.validationErrors();
 
-    if(erros){
+    if (erros) {
         res.redirect('jogo?msg=A');//A = Erro
         return;
     }
@@ -80,4 +80,15 @@ module.exports.ordenar_acao_sudito = function (application, req, res) {
     JogoDAO.acao(dadosForm);
 
     res.redirect('jogo?msg=B');//B = Comando Executado com sucesso
+}
+
+module.exports.revogar_acao = function (application, req, res) {
+
+    var urlQuery = req.query;
+
+    var connection = application.config.dbConnection;
+    var JogoDAO = new application.app.models.JogoDAO(connection);
+
+    var _id = urlQuery.id_acao;
+    JogoDAO.revogarAcao(_id, res);
 }
