@@ -154,3 +154,13 @@
 ::1 - - [05/Nov/2018:15:05:42 +0000] "GET /jogo HTTP/1.1" 304 -
 ::1 - - [05/Nov/2018:15:05:43 +0000] "GET /suditos HTTP/1.1" 304 -
 ::1 - - [05/Nov/2018:15:07:15 +0000] "POST /ordenar_acao_sudito HTTP/1.1" - -
+::1 - - [05/Nov/2018:15:14:43 +0000] "GET / HTTP/1.1" 304 -
+::1 - - [05/Nov/2018:15:14:50 +0000] "POST /autenticar HTTP/1.1" 200 1463
+::1 - - [05/Nov/2018:15:14:56 +0000] "POST /autenticar HTTP/1.1" 302 52
+::1 - - [05/Nov/2018:15:14:56 +0000] "GET /jogo HTTP/1.1" 200 3179
+::1 - - [05/Nov/2018:15:15:05 +0000] "GET /suditos HTTP/1.1" 304 -
+::1 - - [05/Nov/2018:15:15:08 +0000] "POST /ordenar_acao_sudito HTTP/1.1" 302 64
+::1 - - [05/Nov/2018:15:15:08 +0000] "GET /jogo?msg=A HTTP/1.1" 200 3316
+::1 - - [05/Nov/2018:15:15:16 +0000] "GET /suditos HTTP/1.1" 304 -
+::1 - - [05/Nov/2018:15:15:19 +0000] "POST /ordenar_acao_sudito HTTP/1.1" 302 64
+::1 - - [05/Nov/2018:15:15:20 +0000] "GET /jogo?msg=B HTTP/1.1" 200 3294
